@@ -1,5 +1,12 @@
 {
-    "files.associations": {
-        "iostream": "cpp"
-    }
+"files.associations": {
+  "*.cpp": "cpp",
+  "iostream": "cpp",
+  "iosfwd": "cpp",
+  "iomanip": "cpp"
+},
+"code-runner.executorMap": {
+  "cpp": "g++ $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt"
+},
+"code-runner.runInTerminal": true
 }
