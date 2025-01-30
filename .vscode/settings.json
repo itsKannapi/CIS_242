@@ -8,5 +8,6 @@
 "code-runner.executorMap": {
   "cpp": "g++ $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt"
 },
-"code-runner.runInTerminal": true
+"code-runner.runInTerminal": true,
+"C_Cpp.errorSquiggles": "disabled"
 }
