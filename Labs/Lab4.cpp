@@ -1,56 +1,85 @@
 #include <iostream>
 #include <string>
-#include <time.h>
-using namespace std;
-class Account {
-    // public:
-    //         float fAmount;
-    //         char cType;
-    //         char stDescription[0];
-    //         float fBalance;
-};
-float fAmount;
-char cType;
-char stDescription[0];
-float fBalance;
 
-void Calculate();
-void ObtainData();
-void PrintReport();
+using namespace std;
+
+class Account {
+private:
+    float balance;        //account balance
+    float amount;         //transaction amount
+    char type;            //transaction type
+    string description;   //transaction description
+
+public:
+    Account() : balance(0.0f) {} //initializing balance to 0
+
+    void ObtainData() {
+        cout << "Enter transaction type (D/d for Deposit, W/w for Withdrawal): \n";
+        cin >> type;
+
+        if (type == 'd' || type == 'D') {
+            cout << "Enter amount to deposit: ";
+            cin >> amount;
+        }
+        else if (type == 'w' || type == 'W') {
+            cout << "Enter amount to withdraw: ";
+            cin >> amount;
+        }
+        else {
+            description = "Invalid";
+            cout << "Invalid transaction type!" << endl;
+        }
+    }
+
+    void Calculate() {
+        //const double interestRate = 0.02;
+        if (type == 'd' || type == 'D') {
+            description = "Deposit";
+            balance += amount;
+            //balance += balance * interestRate;  // Add interest to the new balance
+        }
+        else if (type == 'w' || type == 'W') {
+            if (amount > balance) {
+                description = "Invalid";
+                cout << "Insufficient funds for withdrawal!" << endl;
+            } else {
+                description = "Withdrawal";
+                balance -= amount;
+            }
+        } 
+        else {
+            description = "Invalid";
+        }
+    }
+
+    void PrintReport() {
+        cout << "\nBanking Report";
+        cout << "\n-----------------------";
+        
+        if (description == "Deposit") {
+            cout << "\nTransaction Type: " << description;
+            cout << "\nAmount: +$" << amount;
+            cout << "\nNew Account Balance: $" << balance;
+        }
+        else if (description == "Withdrawal") {
+            cout << "\nTransaction Type: " << description;
+            cout << "\nAmount: -$" << amount;
+            cout << "\nNew Account Balance: $" << balance;
+        }
+        else {
+            cout << "\nInvalid transaction attempted!";
+        }
+
+        cout << "\n";
+    }
+};
 
 int main() {
-    ObtainData();
-}
-void Calculate(){
-    // statements for the Account class function Calculate()
-    if (cType == 'd' || cType == 'D'){
-        strcpy(stDescription, "Deposit");
-        fBalance += fAmount;
-    }
-    else if (cType == 'w' || cType == 'W'){
-        strcpy(stDescription, "Withdrawal");
-        fBalance -= fAmount;
-    }
-    else {
-        strcpy(stDescription, "Invalid");
-        cout << "Invalid Transaction Type" << endl;
-    }
-}
-void ObtainData(){
-    cout << "What is your transaction type? (D/d for Desposit, W/w for Withdrawl): ";
-    cin >> cType;
-    if (cType == 'd' || cType == 'D'){
-        cout << "Insert Amount to Deposit: ";
-    }
-    else if (cType == 'w' || cType == 'W'){
-        cout << "Insert Amount to Withdrawl: ";
-    }
-    else {
-        strcpy(stDescription, "Invalid");
-        cout << "Invalid Transaction Type" << endl;
-    }
-} //To prompt and input transaction type and amount
-    
-void PrintReport(){
+    Account myAccount;
 
- } //To generate a formatted report
+    myAccount.ObtainData();
+    myAccount.Calculate();
+    myAccount.PrintReport();
+
+    return 0;
+}
