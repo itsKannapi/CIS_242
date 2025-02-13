@@ -1,0 +1,21 @@
+#include "pch.h"
+#include "CppUnitTest.h"
+#include "../Project1/Students.h" // make sure your project name is accurate
+
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+namespace UnitTest1{
+    TEST_CLASS(UnitTest1){
+    public:
+        TEST_METHOD(TestMethod1){
+            std::string name = "James";
+            Student m(name);
+            Assert::AreEqual(name, m.getName());
+        }
+        TEST_METHOD(TestMethod2){
+            std::string name = "James";
+            Student m(name);
+            Assert::AreNotEqual(name, m.getName());
+        }
+    };
+}

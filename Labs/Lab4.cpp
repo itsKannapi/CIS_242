@@ -32,11 +32,11 @@ public:
     }
 
     void Calculate() {
-        //const double interestRate = 0.02;
+        const double interestRate = 0.02;
         if (type == 'd' || type == 'D') {
             description = "Deposit";
             balance += amount;
-            //balance += balance * interestRate;  // Add interest to the new balance
+            balance += balance * interestRate;  // Add interest to the new balance
         }
         else if (type == 'w' || type == 'W') {
             if (amount > balance) {
