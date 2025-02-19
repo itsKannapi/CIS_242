@@ -1,50 +1,56 @@
 #include <iostream>
+#include <string>
 using namespace std;
+
 class Employee {
-    protected:
-        string empID;
-        string empName;
-        float hourlyRate;
-        float grossPay;
-        int hoursWorked;
-        char name[size];
-        int number;
-    public:
-        Employee() {
-            cout << "An employee is being constructed." << endl;
-        }
-        void getName(char theName[]);
-        int getNumber();
-        void SetEmpID(string id) { 
-            empID = id; 
-        }
-        string GetEmpID(){ 
-            return empID; 
-        }
-        void SetName(string name) { 
-            empName = name; 
-        }
-        string GetName(){ 
-            return empName; 
-        }
-        void SetHourlyRate(float rate){ 
-            hourlyRate = rate; 
-        }
-        float GetHourlyRate(){ 
-            return hourlyRate; 
-        }
-    void SetHoursWorked(int hours){ 
-        hoursWorked = hours; 
+protected:
+    string empID;
+    string empName;
+    float hourlyRate;
+    float grossPay;
+    int hoursWorked;
+
+public:
+    Employee() {
+        cout << "An Employee is being constructed." << endl;
     }
-    int GetHoursWorked(){ 
-        return hoursWorked; 
+
+    void SetEmpID(string ID) {
+        empID = ID;
     }
-    float GetGrossPay(){ 
-        return hourlyRate * hoursWorked; 
+    string GetEmpID() {
+        return empID;
     }
+
+    void SetName(string name) {
+        empName = name;
+    }
+    string GetName() {
+        return empName;
+    }
+
+    void SetHourlyRate(float rate) {
+        hourlyRate = rate;
+    }
+    float GetHourlyRate() {
+        return hourlyRate;
+    }
+
+    void SetHoursWorked(int hours) {
+        hoursWorked = hours;
+    }
+    int GetHoursWorked() {
+        return hoursWorked;
+    }
+
+    float GetGrossPay() {
+        grossPay = hourlyRate * hoursWorked;
+        return grossPay;
+    }
+
     void Display() {
-        cout << "Employee Record" << endl;
-        cout << "Employee ID Number: " << empID << endl;
+        cout << "Employee Record\n";
+        cout << "ID Number: " << empID << endl;
         cout << "Name: " << empName << endl;
         cout << "Hours Worked: " << hoursWorked << endl;
         cout << "Hourly Wage: $" << hourlyRate << endl;
@@ -52,28 +58,49 @@ class Employee {
     }
 };
 
-class HourlyEmp : public Employee {
+class SalaryEmp : public Employee {
     private:
-        float wageRate;
+        float annualSalary;
+
     public:
-        HourlyEmp();
-        float getWageRate() const;
-    // use const so as not to change member values
+        SalaryEmp() {
+            cout << "A Salaried Employee is being constructed." << endl;
+        }
+
+    void SetAnnualSalary(float salary){
+        annualSalary = salary;
+    }
+    float GetAnnualSalary(){
+        return annualSalary * 1.005;
+    }
+
+    float GetGrossPay(){
+        return annualSalary / 26;
+    }
+
+    void Display() {
+        cout << "Salaried Employee Record\n";
+        cout << "ID Number: " << empID << endl;
+        cout << "Name: " << empName << endl;
+        cout << "Annual Salary: $" << annualSalary << endl;
+        cout << "Bi-Weekly Gross Pay: $" << GetGrossPay() << endl;
+    }
 };
+
 int main() {
     // Test Employee class
     Employee emp;
-    emp.SetEmpID("805");
+    emp.SetEmpID("727");
     emp.SetName("Sammy Student");
-    emp.SetHourlyRate(10.00);
+    emp.SetHourlyRate(14.50);
     emp.SetHoursWorked(38);
     emp.Display();
 
-    cout << "\n-----------------------\n";
+    cout << "\n--------------------------\n";
 
-    // Test SalaryEmployee class
-    SalaryEmployee salEmp;
-    salEmp.SetEmpID("837");
+    // Test SalaryEmp class
+    SalaryEmp salEmp;
+    salEmp.SetEmpID("999");
     salEmp.SetName("Samantha Student");
     salEmp.SetAnnualSalary(38000.00);
     salEmp.Display();
