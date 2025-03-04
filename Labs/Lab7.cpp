@@ -1,10 +1,16 @@
+// class BankAccount
+// this is the abstract base class for all types of bank accounts
 using namespace std;
 #include <iostream>;
+#include <fstream>;
 
 class BankAccount{
     public:
         BankAccount(int = 0, float = 0);
-        void deposit(float amount) { bal += amount; }
+        void deposit(float amount) {
+            bal += amount;
+            log_transaction("Deposit", amount);
+        }
         int account_num() const {
             return acctnum;
         }
@@ -15,6 +21,16 @@ class BankAccount{
     protected :
         int acctnum;
         float bal;
+        void log_transaction(const string& type, float amount) {
+            ofstream file("accounts.dat", ios::app);
+            if (file.is_open()) {
+                file << "Account #: " << acctnum << ", " << type << ": $" << amount << ", New Balance: $" << bal << endl;
+                file.close();
+            }
+            else {
+            cerr << "Error: Unable to open file for writing!" << endl;
+            }
+        }
 };
 class CheckingAccount : public BankAccount{
     public:
@@ -26,6 +42,10 @@ class CheckingAccount : public BankAccount{
                 if (bal < 1000) {
                 bal -= 0.50;
                 }
+                log_transaction("Withdrawal", amount);
+            }
+            else {
+            cout << "Insufficient funds for withdrawal!" << endl;
             }
         }
         void print() override {
@@ -41,6 +61,7 @@ public:
     void withdraw(float amount) {
         if (bal - amount >= 0) {
             bal -= amount;
+            log_transaction("Withdrawal", amount);
         } else {
             std::cout << "Insufficient funds for withdrawal!" << std::endl;
         }
